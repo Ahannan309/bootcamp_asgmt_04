@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import CountMessage from "./CountMessage.js";
+
+import "./App.css";
 
 function App() {
+  let [count, setCount] = useState(1);
+  let [isMorning, setMorning] = useState(false);
+  let [button, setButton] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className={`counter ${isMorning ? "dayLight" : "darkMode"}`}>
+      <div className="mode">
+        <p>MODE: {isMorning ? "Light" : "Dark"}</p>
+      </div>
+
+      <CountMessage counter={count}></CountMessage>
+      <div className="button">
+        <button
+          onClick={() => setCount(++count)}
+          className={`${button ? "" : "dark_button"}`}
         >
-          Learn React
-        </a>
-      </header>
+          Count
+        </button>
+        <button
+          onClick={() => setCount(--count)}
+          className={`${button ? "" : "dark_button"}`}
+        >
+          Subtract
+        </button>
+        <button
+          onClick={() => setCount(0)}
+          className={`${button ? "" : "dark_button"}`}
+        >
+          Reset
+        </button>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            setMorning(!isMorning);
+            setButton(!button);
+          }}
+        >
+          Change To {isMorning ? "Dark" : "Light"} Mode
+        </button>
+      </div>
     </div>
   );
 }
